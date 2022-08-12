@@ -1,37 +1,51 @@
-import type { Link as LinkType, Prisma } from '@prisma/client';
-import { extendType, nonNull, objectType, stringArg, intArg, enumType, inputObjectType, arg, list } from 'nexus';
+import type { Link as LinkType, Prisma } from "@prisma/client";
+import {
+  extendType,
+  nonNull,
+  objectType,
+  stringArg,
+  intArg,
+  enumType,
+  inputObjectType,
+  arg,
+  list,
+} from "nexus";
 
 export const Sort = enumType({
-  name: 'Sort',
-  members: ['asc', 'desc'],
+  name: "Sort",
+  members: ["asc", "desc"],
 });
 
 export const LinkOrderByInput = inputObjectType({
-  name: 'LinkOrderByInput',
+  name: "LinkOrderByInput",
   definition(t) {
-    t.field('description', { type: Sort });
-    t.field('url', { type: Sort });
-    t.field('createdAt', { type: Sort });
+    t.field("description", { type: Sort });
+    t.field("url", { type: Sort });
+    t.field("createdAt", { type: Sort });
   },
 });
 
 export const Link = objectType({
-  name: 'Link',
+  name: "Link",
   definition(type) {
-    type.nonNull.int('id');
-    type.nonNull.string('description');
-    type.nonNull.string('url');
-    type.nonNull.dateTime('createdAt');
-    type.field('postedBy', {
-      type: 'User',
+    type.nonNull.int("id");
+    type.nonNull.string("description");
+    type.nonNull.string("url");
+    type.nonNull.dateTime("createdAt");
+    type.field("postedBy", {
+      type: "User",
       resolve(parent, args, context, info) {
-        return context.prisma.link.findUnique({ where: { id: parent.id } }).postedBy();
+        return context.prisma.link
+          .findUnique({ where: { id: parent.id } })
+          .postedBy();
       },
     });
-    type.nonNull.list.nonNull.field('voters', {
-      type: 'User',
+    type.nonNull.list.nonNull.field("voters", {
+      type: "User",
       resolve(parent, args, context, info) {
-        return context.prisma.link.findUnique({ where: { id: parent.id } }).voters();
+        return context.prisma.link
+          .findUnique({ where: { id: parent.id } })
+          .voters();
       },
     });
   },
@@ -51,10 +65,10 @@ export const Link = objectType({
 // ];
 
 export const LinkQuery = extendType({
-  type: 'Query',
+  type: "Query",
   definition(type) {
-    type.nonNull.field('feed', {
-      type: 'Feed',
+    type.nonNull.field("feed", {
+      type: "Feed",
       args: {
         filter: stringArg(),
         skip: intArg(),
@@ -65,7 +79,10 @@ export const LinkQuery = extendType({
         // return links;
         const where = args.filter
           ? {
-              OR: [{ description: { contains: args.filter } }, { url: { contains: args.filter } }],
+              OR: [
+                { description: { contains: args.filter } },
+                { url: { contains: args.filter } },
+              ],
             }
           : {};
 
@@ -73,7 +90,9 @@ export const LinkQuery = extendType({
           where,
           skip: args?.skip as number | undefined,
           take: args?.take as number | undefined,
-          orderBy: args?.orderBy as Prisma.Enumerable<Prisma.LinkOrderByWithRelationInput> | undefined,
+          orderBy: args?.orderBy as
+            | Prisma.Enumerable<Prisma.LinkOrderByWithRelationInput>
+            | undefined,
         });
 
         const count = await context.prisma.link.count({ where });
@@ -87,8 +106,8 @@ export const LinkQuery = extendType({
       },
     });
 
-    type.nonNull.field('link', {
-      type: 'Link',
+    type.nonNull.field("link", {
+      type: "Link",
       args: {
         id: nonNull(intArg()),
       },
@@ -105,10 +124,10 @@ export const LinkQuery = extendType({
 });
 
 export const LinkMutation = extendType({
-  type: 'Mutation',
+  type: "Mutation",
   definition(type) {
-    type.nonNull.field('post', {
-      type: 'Link',
+    type.nonNull.field("post", {
+      type: "Link",
       args: {
         description: nonNull(stringArg()),
         url: nonNull(stringArg()),
@@ -127,7 +146,7 @@ export const LinkMutation = extendType({
         const { userId } = context;
 
         if (!userId) {
-          throw new Error('Cannot post without logging in.');
+          throw new Error("Cannot post without logging in.");
         }
 
         const newLink = context.prisma.link.create({
@@ -146,8 +165,8 @@ export const LinkMutation = extendType({
       },
     });
 
-    type.nonNull.field('updateLink', {
-      type: 'Link',
+    type.nonNull.field("updateLink", {
+      type: "Link",
       args: {
         id: nonNull(intArg()),
         description: stringArg(),
@@ -168,7 +187,7 @@ export const LinkMutation = extendType({
         const { userId } = context;
 
         if (!userId) {
-          throw new Error('Cannot update post without logging in.');
+          throw new Error("Cannot update post without logging in.");
         }
 
         const newLinkData: Partial<LinkType> = {};
@@ -188,8 +207,8 @@ export const LinkMutation = extendType({
       },
     });
 
-    type.nonNull.field('deleteLink', {
-      type: 'Link',
+    type.nonNull.field("deleteLink", {
+      type: "Link",
       args: {
         id: nonNull(intArg()),
       },
@@ -202,7 +221,7 @@ export const LinkMutation = extendType({
         const { userId } = context;
 
         if (!userId) {
-          throw new Error('Cannot delete post without logging in.');
+          throw new Error("Cannot delete post without logging in.");
         }
 
         const deletedLink = context.prisma.link.delete({
@@ -217,10 +236,10 @@ export const LinkMutation = extendType({
 });
 
 export const Feed = objectType({
-  name: 'Feed',
+  name: "Feed",
   definition(t) {
-    t.nonNull.list.nonNull.field('links', { type: Link });
-    t.nonNull.int('count');
-    t.id('id');
+    t.nonNull.list.nonNull.field("links", { type: Link });
+    t.nonNull.int("count");
+    t.id("id");
   },
 });
