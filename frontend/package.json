@@ -1,9 +1,0 @@
-{
-  "name": "frontend",
-  "version": "1.0.0",
-  "description": "Frontend of hackernews clone",
-  "main": "index.js",
-  "keywords": [],
-  "author": "Yash Singh",
-  "license": "MIT"
-}
