@@ -50,6 +50,15 @@ export const VoteMutation = extendType({
               },
             },
           });
+          context.pubsub.publish('UNVOTE', {
+            data: {
+              alreadyVoted: true,
+              link,
+              user: await context.prisma.user.findUnique({
+                where: { id: userId },
+              }),
+            },
+          });
         } else {
           link = await context.prisma.link.update({
             where: { id: linkId },
@@ -59,6 +68,15 @@ export const VoteMutation = extendType({
                   id: userId,
                 },
               },
+            },
+          });
+          context.pubsub.publish('NEW_VOTE', {
+            data: {
+              alreadyVoted: false,
+              link,
+              user: await context.prisma.user.findUnique({
+                where: { id: userId },
+              }),
             },
           });
         }

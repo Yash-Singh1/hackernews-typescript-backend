@@ -54,6 +54,8 @@ enum Sort {
 
 type Subscription {
   newLink: Link
+  newVote: Vote
+  unvote: Vote
 }
 
 type User {
