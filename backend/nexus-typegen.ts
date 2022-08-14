@@ -119,6 +119,7 @@ export interface NexusGenFieldTypes {
   Query: { // field return type
     feed: NexusGenRootTypes['Feed']; // Feed!
     link: NexusGenRootTypes['Link']; // Link!
+    user: NexusGenRootTypes['User'] | null; // User
   }
   Subscription: { // field return type
     newLink: NexusGenRootTypes['Link'] | null; // Link
@@ -168,6 +169,7 @@ export interface NexusGenFieldTypeNames {
   Query: { // field return type name
     feed: 'Feed'
     link: 'Link'
+    user: 'User'
   }
   Subscription: { // field return type name
     newLink: 'Link'

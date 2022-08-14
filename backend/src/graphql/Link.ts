@@ -214,7 +214,7 @@ export const LinkMutation = extendType({
       args: {
         id: nonNull(intArg()),
       },
-      resolve(parent, args, context) {
+      async resolve(parent, args, context) {
         // const { id } = args;
         // const link = links.find((link) => link.id === id)!;
         // links = links.filter((link) => link.id !== id);
@@ -226,11 +226,26 @@ export const LinkMutation = extendType({
           throw new Error('Cannot delete post without logging in.');
         }
 
+        const linkCurrentlyBeingDeleted = await context.prisma.link.findUnique({
+          where: {
+            id: args.id,
+          },
+        });
+
+        if (!linkCurrentlyBeingDeleted) {
+          throw new Error('Cannot delete link that does not exist.');
+        }
+
+        if (linkCurrentlyBeingDeleted.postedById !== userId) {
+          throw new Error('Cannot delete link that you did not post.');
+        }
+
         const deletedLink = context.prisma.link.delete({
           where: {
             id: args.id,
           },
         });
+
         return deletedLink;
       },
     });
