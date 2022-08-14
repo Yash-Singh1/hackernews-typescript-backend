@@ -61,6 +61,7 @@ type User {
 }
 
 type Vote {
+  alreadyVoted: Boolean!
   link: Link!
   user: User!
 }

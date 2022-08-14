@@ -73,6 +73,7 @@ export interface NexusGenObjects {
     name: string; // String!
   }
   Vote: { // root type
+    alreadyVoted: boolean; // Boolean!
     link: NexusGenRootTypes['Link']; // Link!
     user: NexusGenRootTypes['User']; // User!
   }
@@ -126,6 +127,7 @@ export interface NexusGenFieldTypes {
     votes: NexusGenRootTypes['Link'][]; // [Link!]!
   }
   Vote: { // field return type
+    alreadyVoted: boolean; // Boolean!
     link: NexusGenRootTypes['Link']; // Link!
     user: NexusGenRootTypes['User']; // User!
   }
@@ -169,6 +171,7 @@ export interface NexusGenFieldTypeNames {
     votes: 'Link'
   }
   Vote: { // field return type name
+    alreadyVoted: 'Boolean'
     link: 'Link'
     user: 'User'
   }

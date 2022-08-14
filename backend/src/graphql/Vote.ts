@@ -6,6 +6,7 @@ export const Vote = objectType({
   definition(t) {
     t.nonNull.field('link', { type: 'Link' });
     t.nonNull.field('user', { type: 'User' });
+    t.nonNull.field('alreadyVoted', { type: 'Boolean' });
   },
 });
 
@@ -25,16 +26,42 @@ export const VoteMutation = extendType({
           throw new Error('Cannot vote without logging in.');
         }
 
-        const link = await context.prisma.link.update({
-          where: { id: linkId },
-          data: {
+        const alreadyVoted = await context.prisma.link.findFirst({
+          where: {
             voters: {
-              connect: {
+              some: {
                 id: userId,
               },
             },
+            id: linkId,
           },
         });
+
+        let link;
+
+        if (alreadyVoted) {
+          link = await context.prisma.link.update({
+            where: { id: linkId },
+            data: {
+              voters: {
+                disconnect: {
+                  id: userId,
+                },
+              },
+            },
+          });
+        } else {
+          link = await context.prisma.link.update({
+            where: { id: linkId },
+            data: {
+              voters: {
+                connect: {
+                  id: userId,
+                },
+              },
+            },
+          });
+        }
 
         const user = await context.prisma.user.findUnique({
           where: { id: userId },
@@ -43,6 +70,7 @@ export const VoteMutation = extendType({
         return {
           link,
           user: user as User,
+          alreadyVoted: !!alreadyVoted,
         };
       },
     });
