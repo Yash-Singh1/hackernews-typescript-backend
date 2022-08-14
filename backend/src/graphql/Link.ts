@@ -161,6 +161,8 @@ export const LinkMutation = extendType({
           },
         });
 
+        context.pubsub.publish('NEW_LINK', { data: newLink });
+
         return newLink;
       },
     });

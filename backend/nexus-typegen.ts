@@ -67,6 +67,7 @@ export interface NexusGenObjects {
   }
   Mutation: {};
   Query: {};
+  Subscription: {};
   User: { // root type
     email: string; // String!
     id: number; // Int!
@@ -119,6 +120,9 @@ export interface NexusGenFieldTypes {
     feed: NexusGenRootTypes['Feed']; // Feed!
     link: NexusGenRootTypes['Link']; // Link!
   }
+  Subscription: { // field return type
+    newLink: NexusGenRootTypes['Link'] | null; // Link
+  }
   User: { // field return type
     email: string; // String!
     id: number; // Int!
@@ -162,6 +166,9 @@ export interface NexusGenFieldTypeNames {
   Query: { // field return type name
     feed: 'Feed'
     link: 'Link'
+  }
+  Subscription: { // field return type name
+    newLink: 'Link'
   }
   User: { // field return type name
     email: 'String'

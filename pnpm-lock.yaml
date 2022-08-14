@@ -12,36 +12,46 @@ importers:
       '@types/express': ^4.17.13
       '@types/jsonwebtoken': ~8.5.0
       '@types/node': ^18.0.5
+      '@types/ws': ^8.5.3
       apollo-server: ^3.1.1
       apollo-server-core: ^3.10.0
+      apollo-server-express: ^3.10.1
       bcryptjs: ~2.4.0
       express: ^4.18.1
       graphql: ^15.5.1
       graphql-scalars: ^1.14.1
+      graphql-subscriptions: ^2.0.0
+      graphql-ws: ^5.10.0
       jsonwebtoken: ~8.5.0
       nexus: ^1.1.0
       prisma: ^3.5.0
       ts-node: ^10.9.1
       ts-node-dev: ^1.1.8
       typescript: ^4.3.5
+      ws: ^8.8.1
     dependencies:
       '@prisma/client': 3.15.2_prisma@3.15.2
       '@types/bcryptjs': 2.4.2
       '@types/express': 4.17.13
       '@types/jsonwebtoken': 8.5.8
       '@types/node': 18.0.5
+      '@types/ws': 8.5.3
       apollo-server: 3.10.1_graphql@15.8.0
       apollo-server-core: 3.10.1_graphql@15.8.0
+      apollo-server-express: 3.10.1_jfj6k5cqxqbusbdzwqjdzioxzm
       bcryptjs: 2.4.3
       express: 4.18.1
       graphql: 15.8.0
       graphql-scalars: 1.17.0_graphql@15.8.0
+      graphql-subscriptions: 2.0.0_graphql@15.8.0
+      graphql-ws: 5.10.0_graphql@15.8.0
       jsonwebtoken: 8.5.1
       nexus: 1.3.0_graphql@15.8.0
       prisma: 3.15.2
       ts-node: 10.9.1_47blntjhuqtdxyxfczkfdvsynq
       ts-node-dev: 1.1.8_typescript@4.7.4
       typescript: 4.7.4
+      ws: 8.8.1
 
 packages:
 
@@ -430,6 +440,12 @@ packages:
 
   /@types/strip-json-comments/0.0.30:
     resolution: {integrity: sha512-7NQmHra/JILCd1QqpSzl8+mJRc8ZHz3uDm8YV1Ks9IhK0epEiTw8aIErbvH9PI+6XbqhyIQy3462nEsn7UVzjQ==}
+    dev: false
+
+  /@types/ws/8.5.3:
+    resolution: {integrity: sha512-6YOoWjruKj1uLf3INHH7D3qTXwFfEsg1kf3c0uDdSBJwfa/llkwIjrAGV7j7mVgGNbzTQ3HiHKKDXl6bJPD97w==}
+    dependencies:
+      '@types/node': 18.0.5
     dev: false
 
   /accepts/1.3.8:
@@ -917,6 +933,15 @@ packages:
       tslib: 2.3.1
     dev: false
 
+  /graphql-subscriptions/2.0.0_graphql@15.8.0:
+    resolution: {integrity: sha512-s6k2b8mmt9gF9pEfkxsaO1lTxaySfKoEJzEfmwguBbQ//Oq23hIXCfR1hm4kdh5hnR20RdwB+s3BCb+0duHSZA==}
+    peerDependencies:
+      graphql: ^15.7.2 || ^16.0.0
+    dependencies:
+      graphql: 15.8.0
+      iterall: 1.3.0
+    dev: false
+
   /graphql-tag/2.12.6_graphql@15.8.0:
     resolution: {integrity: sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg==}
     engines: {node: '>=10'}
@@ -925,6 +950,15 @@ packages:
     dependencies:
       graphql: 15.8.0
       tslib: 2.4.0
+    dev: false
+
+  /graphql-ws/5.10.0_graphql@15.8.0:
+    resolution: {integrity: sha512-ewbPzHQdRZgNCPDH9Yr6xccSeZfk3fmpO/AGGGg4KkM5gc6oAOJQ10Oui1EqprhVOyRbOll9bw2qAkOiOwfTag==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      graphql: '>=0.11 <=16'
+    dependencies:
+      graphql: 15.8.0
     dev: false
 
   /graphql/15.8.0:
@@ -1568,6 +1602,19 @@ packages:
 
   /wrappy/1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
+    dev: false
+
+  /ws/8.8.1:
+    resolution: {integrity: sha512-bGy2JzvzkPowEJV++hF07hAD6niYSr0JzBNo/J29WsB57A2r7Wlc1UFcTR9IzrPvuNVO4B8LGqF8qcpsVOhJCA==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: ^5.0.2
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
     dev: false
 
   /xss/1.0.13:
